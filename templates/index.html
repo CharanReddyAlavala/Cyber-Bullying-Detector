@@ -13,26 +13,39 @@
         }
 
         body {
+            background-image: url('https://cdn.glitch.global/a570c87e-368f-4d6b-9520-89e40a370a9b/CBD-1.jpg?v=1732287566165');
             font-family: Cambria;
-            background-color: #EBEDDF;
-            background-size: cover;
+            /*background-color: #EBEDDF; */
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 105vh;
             text-align: center;
             padding: 20px;
             color: #0b0b0b;
+            position: relative;
         }
-
+        body::before {
+             content: '';
+             position: absolute;
+             top: 0;
+             left: 0;
+             right: 0;
+             bottom: 0;
+             background-color: rgba(0, 0, 0, 0.1); /* Black with 10% opacity */
+            z-index: -1; /* Places the overlay behind the content */
+       }
         h1 {
             position: absolute;
             top: 20px;
-            color: #333A2F; 
+            color:#0b0b0b; 
             font-size: 2.5em;
+            font-weight: 900;
+            
         }
 
         form {
@@ -78,7 +91,6 @@
             background: #0056b3;
         }
 
-        
         @keyframes fadeSlideIn {
             0% {
                 opacity: 0;
@@ -94,8 +106,6 @@
             margin-top: 20px;
             font-size: 1.2em;
             padding: 10px;
-            background: rgba(152, 127, 127, 0.8);
-            color: #000;
             border-radius: 5px;
             display: inline-block;
             max-width: 600px;
@@ -103,10 +113,20 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             animation: fadeSlideIn 0.8s ease-out; 
         }
+
+        .cyberbullying {
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+        }
+
+        .non-cyberbullying {
+            background: rgba(0, 255, 0, 0.8);
+            color: black;
+        }
     </style>
 </head>
 <body>
-    <h1>Cyberbullying Comment Detector</h1>
+    <h1><b>Cyberbullying Comment Detector</b></h1>
     <form method="POST" action="/">
         <!-- Input field -->
         <input 
@@ -125,7 +145,9 @@
 
     <!-- Display result -->
     {% if prediction is not none %}
-    <div class="result">
+    <div 
+        class="result 
+        {% if prediction == 'Cyberbullying' %}cyberbullying{% else %}non-cyberbullying{% endif %}">
         <strong>Prediction Result:</strong> {{ prediction }}
     </div>
     {% endif %}
